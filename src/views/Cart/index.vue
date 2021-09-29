@@ -10,16 +10,7 @@
         :shopCart='shopCart'
       />
     </div>
-    <div class='cart-want-title'>
-      你可能还喜欢
-    </div>
-    <div class='cart-want-group'>
-      <want-item
-        v-for='want in wantList'
-        :key='want.id'
-        :want='want'
-      />
-    </div>
+    <may-like/>
     <div class='cart-settlement'>
       <custom-radio
         v-model='selectAll'
@@ -50,13 +41,12 @@
 <script setup>
 import ShopItem from '@/components/ShopItem.vue'
 import CustomRadio from '@/components/CustomRadio.vue'
-import WantItem from '@/components/WantItem.vue'
+import MayLike from '@/components/MayLike.vue'
 import { computed, onMounted, provide, ref } from 'vue'
 import axios from 'axios'
 
 const management = ref(false)
 const shopCartList = ref([])
-const wantList = ref([])
 
 const totalNum = computed(() => {
   return shopCartList.value.reduce((o, i) => {
@@ -125,12 +115,6 @@ onMounted(() => {
       console.log(data)
       shopCartList.value = data
     })
-
-  axios.get('/getWantList')
-    .then(({ data }) => {
-      console.log(data)
-      wantList.value = data
-    })
 })
 </script>
 
@@ -148,39 +132,6 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 15px;
-  }
-
-  .cart-want-title {
-    font-size: 12px;
-    color: #f05151;
-    text-align: center;
-    margin: 15px 0;
-    position: relative;
-
-    &:before, &:after {
-      content: '';
-      display: block;
-      width: 60px;
-      height: 1px;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    &:before {
-      background: linear-gradient(to left, #f05151, transparent);
-      left: 72px;
-    }
-
-    &:after {
-      background: linear-gradient(to right, #f05151, transparent);
-      right: 72px;
-    }
-  }
-
-  .cart-want-group {
-    column-width: 175px;
-    column-gap: 9px;
   }
 
   @at-root .cart-settlement {

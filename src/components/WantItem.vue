@@ -38,7 +38,7 @@ defineProps({
   break-inside: avoid;
   margin-bottom: 10px;
 
-  @for $i from 1 through 7 {
+  @for $i from 1 through 100 {
     &:nth-child(#{$i}) .want-item-img {
       height: max(200 + random($limit: 200), random($limit: 300)) + px;
       background-color: steelblue;
